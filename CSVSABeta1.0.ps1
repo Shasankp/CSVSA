@@ -1,12 +1,15 @@
-<# 
+                                <################################################################################>
+                                <##                                                                             ##>
+                                <##                       Clustered Shared Volume State Analyer                 ##>
+                                <##                             written by:                                     ##>
+                                <##                            * Shasankp                                       ##>
+                                <##                                                                             ##>
+                                <##                                                                             ##>
+                                <##                                                                             ##>
+                                <##                                                                             ##>
+                                <##                                                                             ##>
+                                <################################################################################>
 
-To add 
-1.Accept log path and time of the issue from the user
-2.Pass the out grid parameter to CSVlog parser to search for sequence number
-3.General error handling etc
-
-
-#>
 
 Param(
     # Path where the SDP is located TODO Add script validation using Test-PAth with Type Container
@@ -419,8 +422,12 @@ try {
     $P = Import-Csv -Path .\Commonerrors.csv 
     $p| out-gridView -title " Help Text : Error Code translataion" 
     }
+else {
 
-    WriteInfo -message "WARNING: Continuing without help text Menu, Copy the Commonerrors.csv in the folder as the script" red
+    WriteError -message "WARNING: Continuing without help text Menu, Copy the Commonerrors.csv in the folder as the script"
+    
+}
+    
 
     #region: Output parsed events as Grid View
     WriteInfo -message "ENTER: Output parsed events as Grid View"

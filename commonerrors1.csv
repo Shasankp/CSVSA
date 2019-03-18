@@ -1,0 +1,29 @@
+﻿Error,Symbol,Possible cause,Source Value,CSV States
+c000020c,STATUS_CONNECTION_DISCONNECTED,"Either networking glitch or DCM is killing sessions,Schannel Logs",1.Unknown,CsvFsVolumeStateInit         = 0 |Failing all IO or Init
+c00000b5,STATUS_IO_TIMEOUT,FS redirected IO on the MDS took 2(sync) or 4 (async) minutes.,2.Tunneled metadata IO,CsvFsVolumeStatePaused       = 1| IO Paused. All IO drained. All down-level files are closed.
+c000026e,STATUS_VOLUME_DISMOUNTED,Storage failure,3. Apply byte range lock on down-level file system,CsvFsVolumeStateDraining     = 2| IO Paused. Volume is draining IO.
+c00000a2,STATUS_MEDIA_WRITE_PROTECTED,"We should not auto-pause on this status code, but let it flow back to the user",4. Remove all byte range locks,CsvFsVolumeStateSetDownlevel = 3| IO Paused. All down-level files are reopened.
+c00000be,STATUS_BAD_NETWORK_PATH,Either network glitch or DCM is plumbing wrong path,5.Remove byte range lock,CsvFsVolumeStateActive       = 4|IO are not blocked.
+C0130021,STATUS_CLUSTER_CSV_AUTO_PAUSE_ERROR,In Threshold replaced by STATUS_CLUSTER_CSV_NO_SNAPSHOTS.,6.Continues availability resume complete,Track CSV states using the below seqno in cluster logs
+80000011,STATUS_DEVICE_BUSY,Lost PRs,7.Continues availability resume complete for paging file object,<CsVownernode:SeqNoGlobal><SeqNoLocaltoEachnode>
+c000009d,STATUS_DEVICE_NOT_CONNECTED,Lost connectivity to storage,8.Continues availability set bypass,<2:820338753541><820338753549>
+c000000e,STATUS_NO_SUCH_DEVICE,Lost connectivity to storage,9.Continues availability suspend handle on close,<Node2:SeqNo same on all nodes><LocalSqNo-UniquetooneNode>
+c00000c4,STATUS_UNEXPECTED_NETWORK_ERROR,Networking failure,10.Stop buffering on file close,
+c0000435,STATUS_PURGE_FAILED,Known issue. In R2 and Threshold we have implemented several changes that should reduce occurrences of autopause due to failure to purge cache on NTFS.,11.Remove all byte range locks on file close,
+c0000185,STATUS_IO_DEVICE_ERROR,Unknown reason,12.User requested,
+c000020d,STATUS_CONNECTION_RESET,Networking issue,13.Purge on oplock break,
+c0000128,STATUS_FILE_CLOSED,Unknown reason,14.Advance VDL on oplock break,
+c0000203,STATUS_USER_SESSION_DELETED,Could be DCM is killing sessions in some incorrect cases,15.Flush on oplock break,
+c0380047,STATUS_VOLMGR_VOLUME_LENGTH_INVALID,Unknown reason,16.Memory allocation to stop buffering,
+c0000013,STATUS_NO_MEDIA_IN_DEVICE,Storage failure,17.Stopping buffering,
+c000003c,STATUS_DATA_OVERRUN,Unknown reason,18.Setting maximum oplock level,
+c0000010,STATUS_INVALID_DEVICE_REQUEST,Unknown reason,19.Oplock break acknowledge to CSV filter,
+c00000a3,STATUS_DEVICE_NOT_READY,Unknown reason,20.Oplock break acknowledge,
+c000023c,STATUS_NETWORK_UNREACHABLE,Either network glitch or DCM is plumbing wrong path,21.Downgrade buffering asynchronous,
+c0000001,STATUS_UNSUCCESSFUL,CSVFS forces auto-pause. In threshold we are logging substatus that will help to understand exact reson.,22.Oplock upgrade,
+c000009c,STATUS_DEVICE_DATA_ERROR,Unknown reason,23.Query oplock status,
+c0130021,STATUS_CLUSTER_CSV_AUTO_PAUSE_ERROR,In Threshold replaced by STATUS_CLUSTER_CSV_NO_SNAPSHOTS.,24Single client notification complete,
+c00000b5,STATUS_IO_TIMEOUT,FS redirected IO on the MDS took 2(sync) or 4 (async) minutes.,25.Single client notification stop oplock,
+c0000015,STATUS_NONEXISTENT_SECTOR,Unknown reason,,
+c000000d,STATUS_INVALID_PARAMETER,Unknown reason,,
+c000007e,STATUS_RANGE_NOT_LOCKED,Unknown reason,,
