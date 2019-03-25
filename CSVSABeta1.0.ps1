@@ -14,7 +14,7 @@
 Param(
     # Path where the SDP is located TODO Add script validation using Test-PAth with Type Container
     [Parameter(Mandatory = $false, Position = 1)]
-    [String] $SDPPath = "C:\sameh",
+    [String] $SDPPath ,
     
     # Begin date
     [Parameter(Mandatory = $false)]
@@ -29,6 +29,46 @@ Param(
     [ValidateSet("Basic", "Advanced")]
     [String] $DetailLevel
 )
+
+
+function cmdlinemessgas($msg)
+{
+Write-host -ForegroundColor Yellow $msg
+Write-Host "Usage:"
+Write-Host ""
+Write-Host "    CSVSABeta1.0 SourcePath"
+
+Write-Host "        srcpath  = path to the SDP"
+Write-Host "        Example  CSVSABeta1.0 c:\Sdp "
+
+
+}
+
+
+if(($SDPPath -eq ""))
+{
+    $mymsg = "Source path cannot be empty"
+    cmdlinemessgas($mymsg)
+    exit
+}
+
+#Error Checking for Cmd line param
+if(!(Test-Path $SDPPath -IsValid))
+{
+    $Mymsg = "Source file path not Specified or file not found"
+    cmdlinemessgas($mymsg)
+    exit
+}
+
+
+
+if(($SDPPath -eq "/?"))
+{
+    $mymsg = "Listing help"
+    cmdlinemessgas($mymsg)
+    exit
+}
+
 
 #region: customization section of script, logging configuration
 if ($LogFilePath) { $ScriptMode = $true}
